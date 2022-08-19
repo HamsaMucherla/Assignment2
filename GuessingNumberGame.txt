@@ -1,0 +1,86 @@
+import java.util.Scanner;
+class Guesser{ 
+    int guessNum;
+    public int guessNumber()
+	{
+        Scanner sc=new Scanner(System.in); 
+        System.out.println("Guesser please give the number");
+        guessNum=sc.nextInt(); //Taking input from guesser
+        return guessNum;
+	}
+}
+
+class Player{
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt(); //taking number of players participating in the game
+    int []playerNum=new int[n]; //creating array of players
+    public int[] guessNumber()
+	{
+        for(int i=0;i<playerNum.length;i++)
+        {
+            System.out.println("Player "+(i+1) +" guess the number:");
+            playerNum[i]=sc.nextInt(); // storing numbers given by players
+        }
+        return playerNum;
+	}
+}
+
+class Umpire{
+    int numFromGuesser; // number that is choosen by the guesser
+    int n; // number of players
+    int []numFromPlayers=new int[n];	// to store the numbers from the players in an array
+    
+    public void collectNumFromGuesser(){
+        Guesser g=new Guesser(); // creating object for Guesser class
+        numFromGuesser=g.guessNum;
+           
+    }
+    
+    public void collectNumFromPlayers(){
+        Player p=new Player(); // creating object for Player class
+        n=p.n;
+        for(int i=0; i<n;i++)
+        {
+            numFromPlayers[i]=p.playerNum[i];
+        }
+           
+    }
+    
+    public void findingWinner()
+    {
+        
+        // int []temp=new int[n];
+        int temp=0;
+        for(int i=0;i<numFromPlayers.length;i++)
+        {
+            if(numFromPlayers[i]==numFromGuesser)
+            {
+                temp=1;
+                System.out.println(" Congratulations!  Player "+ (i+1) + "won the game");
+            }
+        }
+        
+        if(temp==0)
+        {
+            System.out.println("Sorry, all players lost the game");
+        }
+        
+        
+        
+    }
+}
+public class Main{
+    public static void main(String[] args) {
+        Umpire u=new Umpire();
+        System.out.println("Guesser please give the number");
+        u.collectNumFromGuesser();
+        u.collectNumFromPlayers();
+        u.findingWinner();
+    }
+}
+
+
+
+
+
+
